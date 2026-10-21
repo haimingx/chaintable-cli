@@ -42,8 +42,12 @@ ORDER BY 1
 
 ## Freshness
 
-SQL reads analytics storage that is synchronized from the online tables asynchronously, typically within minutes.
+SQL reads analytics storage that is synchronized from the online tables asynchronously. Block tables arrive in
+block ranges and can trail the chain head; normal and time tables are copied periodically, about hourly for normal
+tables, so a table written minutes ago may still be empty in SQL.
 
+- Before relying on recent blocks, compare `SELECT max(block_height)` with `table stats block --recent 1`, and bound
+  the query to the covered range.
 - The newest rows may be missing from SQL while `chaintable table row list` or `table row query` already return them.
 - Tables synchronize independently; when joining, restrict to a block or time range all of them cover.
 - A query result is fixed when it is computed. Run the query again to include newer data.

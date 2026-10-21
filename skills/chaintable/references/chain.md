@@ -17,7 +17,12 @@ holds; use tables for history and anything already indexed.
 ```sh
 chaintable rpc 1 --method getLatestBlock
 chaintable rpc 1 --method getAddressBalance --params '["0x…", {"type": "Equals", "block_id": "latest"}]'
+chaintable rpc 1 --method contractMultiCall --params '[[{"to": "0x…", "data": "0x313ce567"}], {"type": "Equals", "block_id": "latest"}]'
 ```
+
+`contractMultiCall` takes a list of calls (`to`, ABI-encoded `data`) and returns one entry per call in
+`result.results`: `code` 0 and the ABI-encoded `result`, or a non-zero `code` with `err`. `0x313ce567` is
+`decimals()`; decode the 32-byte words yourself.
 
 Inside functions and notebooks, the Leafage SDK offers the same reads, plus contract calls by method signature.
 

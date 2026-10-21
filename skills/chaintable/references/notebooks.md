@@ -9,7 +9,8 @@ computation to BlockX and writes results through BlockDB.
 
 - Arguments are strings: the script reads them with `from chaintable import arguments; arguments.get_arguments()`.
   Pass them as `--arguments '[{"name":"raw_amount","value":"1500000"}]'`.
-- Resources come from `chaintable notebook instance specs`; a running instance holds the account's notebook quota.
+- Resources are one of the pairs in `chaintable notebook instance specs`: `--max-cpu` in hundredths of a core (`100`
+  is one core) and `--max-memory` in bytes. A running instance holds the account's notebook quota.
 - Always run with `--follow` (or `--background`). A foreground instance stops when nothing keeps it alive for 150
   seconds, which a CLI cannot do.
 - Editing a notebook does not change a running instance; start a new one. Status: `running`, then `succeeded`,
@@ -20,7 +21,7 @@ computation to BlockX and writes results through BlockDB.
 ```sh
 chaintable notebook create --space <space> --name daily_job --language python --code @job.py
 chaintable notebook instance specs
-chaintable notebook run --id <notebook-id> --max-cpu 1 --max-memory 4 --arguments '[{"name":"raw_amount","value":"1500000"}]' --follow
+chaintable notebook run --id <notebook-id> --max-cpu 100 --max-memory 4294967296 --arguments '[{"name":"raw_amount","value":"1500000"}]' --follow
 chaintable notebook instance list --notebook-id <notebook-id> --limit 5
 chaintable notebook instance logs --id <instance-id>
 chaintable notebook instance cancel --id <instance-id>

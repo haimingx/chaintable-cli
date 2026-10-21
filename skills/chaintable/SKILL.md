@@ -104,7 +104,7 @@ Calls share the account's rate limit, and reads may briefly miss a write that ju
 
 | Need | Use | Notes |
 |---|---|---|
-| Analysis, aggregation, joins, history | `query run --wait` (SQL) | Analytics copy, minutes behind; read `references/sql.md` first |
+| Analysis, aggregation, joins, history | `query run --wait` (SQL) | Analytics copy that trails the online tables; read `references/sql.md` first |
 | Latest rows of one table, simple filter | `table row query`, `table row list`, `table row get` | Live data, one table, no joins |
 | Current chain state (balance, block, contract call) | `rpc <chain_id>` | Node state, not tables |
 | Reusable logic the user saved | `function invoke` | Billed per call; a new function needs about 2 minutes |

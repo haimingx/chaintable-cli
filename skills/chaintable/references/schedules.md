@@ -14,8 +14,8 @@ notebooks, holds compute while it runs; agree on the frequency with the user.
 | `crontab` | Runs at each `--cron` time, evaluated in UTC; a run is skipped while the previous one still runs | Periodic refreshes and batch jobs that finish |
 | `perpetual` | Notebooks only: keeps one instance running and starts it again whenever it exits, from the top of the script | `Pipeline.update()` and other continuous work |
 
-- Notebook schedules take the run's `--arguments` (`{name, value}` objects) and `--max-cpu`/`--max-memory` from
-  `notebook instance specs`.
+- Notebook schedules take the run's `--arguments` (`{name, value}` objects) and `--max-cpu`/`--max-memory`, a pair from
+  `notebook instance specs` (hundredths of a core, bytes).
 - `schedule disable` stops future runs; for `perpetual` it also stops the instance. Disabling `crontab` does not
   cancel a run already started. `schedule restart` restarts a perpetual schedule's instance.
 - A perpetual instance does not pick up new code until it restarts: update the notebook, then `schedule restart`.
@@ -24,7 +24,7 @@ notebooks, holds compute while it runs; agree on the frequency with the user.
 
 ```sh
 chaintable schedule create --space <space> --content-type query --content-id <query-id> --mode crontab --cron "30 0 * * *"
-chaintable schedule create --space <space> --content-type notebook --content-id <notebook-id> --mode perpetual --max-cpu 1 --max-memory 4
+chaintable schedule create --space <space> --content-type notebook --content-id <notebook-id> --mode perpetual --max-cpu 100 --max-memory 4294967296
 chaintable schedule list --space <space>
 chaintable schedule disable --id <schedule-id>
 ```
