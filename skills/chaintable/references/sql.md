@@ -47,8 +47,8 @@ query per statement; delete the ones you created when the task is done unless th
 ## Freshness
 
 SQL reads analytics storage that is synchronized from the online tables asynchronously. Block tables arrive in
-block ranges and can trail the chain head; normal and time tables are copied periodically, about hourly for normal
-tables, so a table written minutes ago may still be empty in SQL.
+block ranges and can trail the chain head; normal and time tables are copied periodically, which can take an hour or more,
+so rows written recently may still be missing from SQL.
 
 - Before relying on recent blocks, compare `SELECT max(block_height)` with `table stats block --recent 1`, and bound
   the query to the covered range.

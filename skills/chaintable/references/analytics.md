@@ -9,7 +9,7 @@ produces a saved result, which visualizations and dashboards display.
 | Stage | Question | How it moves forward |
 |---|---|---|
 | Online table | Was the data written? | The writing task completes |
-| Analytics snapshot | Can SQL see it? | Synchronization publishes a new version: block ranges for block tables, about hourly for normal tables |
+| Analytics snapshot | Can SQL see it? | Synchronization publishes a new version: block ranges for block tables, an hour or more for normal tables |
 | Query result | Which run produced these numbers? | Run the query again |
 
 Tables synchronize independently, so a join may mix heights: bound it to a range every table covers. A saved result
