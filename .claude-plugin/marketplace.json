@@ -1,0 +1,14 @@
+{
+  "name": "chaintable",
+  "description": "Experimental Chaintable plugins for coding agents",
+  "owner": {
+    "name": "haimingx"
+  },
+  "plugins": [
+    {
+      "name": "chaintable",
+      "source": "./",
+      "description": "Experimental: Chaintable for coding agents — query indexed on-chain data with SQL, read live tables and chain state, and run functions, notebooks and pipelines"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+chaintable CLI License
+
+Copyright (c) 2026 haimingx. All rights reserved.
+
+This software is an independent project. It is not an official Chaintable product and is not
+endorsed or supported by Chaintable. The name "Chaintable" is used only to identify the
+services that this software connects to.
+
+Permission is granted, free of charge, to any person obtaining the released binaries of this
+software (the "Software") to install and use them, subject to the following conditions:
+
+1. This license covers the Software only and grants no right to use the Chaintable services.
+   Your use of those services through the Software, including the restrictions of your service
+   edition, usage limits and charges, is governed by the Chaintable Terms of Service
+   (https://chaintable.com/docs/terms) that apply to your account.
+
+2. You must not use the Software to share an account or access credentials with another
+   person, or to evade access controls, usage limits, rate limits or other technical
+   restrictions of the services. You are responsible for the credentials you use with the
+   Software and for the requests it makes on your behalf.
+
+3. You may redistribute the Software only as unmodified copies of the release archives
+   published at https://github.com/haimingx/chaintable-cli, including this license and
+   THIRD_PARTY_NOTICES. You may not sell, sublicense or rent the Software.
+
+4. You may not modify, decompile, disassemble or reverse engineer the Software, except to the
+   extent that applicable law expressly permits it despite this condition.
+
+5. Third-party components included in the Software are licensed under their own terms, listed
+   in THIRD_PARTY_NOTICES. Nothing in this license limits your rights under those terms.
+
+The author may change these terms for future releases. Releases you already obtained remain
+under the terms they were released with.
+
+Data and results obtained through the Software are provided for informational and technical
+purposes and are not investment, financial or trading advice.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, INCLUDING CHARGES INCURRED THROUGH THE SERVICES, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE. Nothing in this license excludes or limits a liability that
+applicable law does not allow to be excluded or limited.
