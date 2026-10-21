@@ -40,6 +40,10 @@ ORDER BY 1
 - Timestamps are UTC. Use half-open ranges (`>=` start, `<` end).
 - Addresses and hashes are lowercase hex strings.
 
+SQL runs through a saved query: `query run --id <query-id> --code @file.sql --wait`. For ad-hoc questions, create one
+query (or reuse one you created earlier in the task) and pass each statement with `--code`, instead of creating a
+query per statement; delete the ones you created when the task is done unless the user wants to keep them.
+
 ## Freshness
 
 SQL reads analytics storage that is synchronized from the online tables asynchronously. Block tables arrive in
