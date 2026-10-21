@@ -28,7 +28,11 @@ use `table row query` instead.
   `STRING`, `DATE` or `TIMESTAMP`), written in the SQL as `{{name}}` and given per run as
   `--arguments '[{"name":"day","value":"2026-09-01"}]'`. Values are inserted as text: quote strings in the SQL
   (`'{{day}}'`), and a list becomes `a,b,c` for `IN ({{ids}})`.
-- Filter and aggregate in SQL; results have size limits, so return what answers the question, not raw tables.
+- Each execution may run at most 120 seconds on the server, plus time queued. For heavy SQL (long ranges, joins, many
+  tokens) pass `--timeout 3m`; waiting longer does not help.
+- `query execution time limit exceeded` (exit 1) fails again unchanged: narrow the block or time range, aggregate
+  before joining and select only the columns needed, then run again.
+- Filter and aggregate in SQL; a result is capped at 100 MB, so return what answers the question, not raw tables.
 
 ## Visualizations and dashboards
 
@@ -40,7 +44,7 @@ use `table row query` instead.
   `label_column` and `value_column`) and a counter `{"type":"counter","column_name":"total"}`. `chaintable schema
   query visualization create` lists every option.
 - A dashboard groups widgets on one page. Widget types: `visualization` (`--visualization-id`), `text`
-  (`--text-content`) and `parameter`. Rerunning a query updates every chart and dashboard that uses it.
+  (`--text-content`, which takes `@file` for long Markdown) and `parameter`. Rerunning a query updates every chart and dashboard that uses it.
 
 ```sh
 chaintable query create --space <space> --name "USDC daily transfers" --language sql --code @query.sql

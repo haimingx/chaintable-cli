@@ -88,8 +88,8 @@ Run the user's request directly; handle setup only when a command says so:
 - Discover commands with `chaintable commands` and inputs with `chaintable schema <command words>` instead of guessing flags.
 - References: print them with `chaintable skill print references/<file>` (`sql.md`, the module files below, `commands.md`); this works
   wherever `chaintable` may run, while reading the skill's files directly can be blocked by agent permissions.
-- Complex inputs: `--body @file.json` or `--body -` (stdin); flags override body fields. `--code` and `--sql` also take
-  `@file`; write SQL to a file instead of using `$(cat …)`, which agent permission checks block.
+- Complex inputs: `--body @file.json` or `--body -` (stdin); flags override body fields. `--code`, `--sql` and `--text-content` also
+  take `@file`; write SQL to a file instead of using `$(cat …)`, which agent permission checks block.
 - Before any create, update, delete or run that the user did not ask for explicitly, show the command and confirm. Add `--dry-run` to preview a request. Deletes need `--yes`.
 
 ## Concurrency
@@ -146,6 +146,8 @@ chaintable query run --id <query-id> --code @query.sql --wait --limit 50
 ```
 
 - `query create` prints the id; reuse it. A failed query exits 1 with the SQL error in `message`; fix and run again.
+- An execution may run at most 120 seconds on the server; pass `--timeout 3m` for heavy SQL. Over that limit it exits 1
+  with `query execution time limit exceeded`: narrow the range or simplify, do not rerun unchanged.
 - `--wait` prints `{"job_id": …}` to stderr, then rows. At `--timeout` (default 90s) it exits 9 and the job keeps running:
   continue with `chaintable query job get --id <job-id>`, then `chaintable query result --id <query_result_id>`.
 
