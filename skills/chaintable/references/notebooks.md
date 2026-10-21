@@ -28,7 +28,8 @@ chaintable notebook instance cancel --id <instance-id>
 ```
 
 `--follow` streams logs until the instance ends; it exits 1 when the script fails and 9 at `--timeout`, leaving the
-instance running.
+instance running. Logs can reach the log store minutes after they are written: when `--follow` ends with a
+`no log lines … yet` warning, the run itself finished; read the logs later with `notebook instance logs`.
 
 ## Pipelines
 
