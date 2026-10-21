@@ -1,6 +1,6 @@
 {
   "name": "chaintable",
-  "version": "0.1.0-beta.17",
+  "version": "0.1.0-beta.18",
   "description": "Experimental: Chaintable for coding agents — query indexed on-chain data with SQL, read live tables and chain state, and run functions, notebooks and pipelines",
   "author": {
     "name": "haimingx",

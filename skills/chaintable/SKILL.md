@@ -77,8 +77,11 @@ Run the user's request directly; handle setup only when a command says so:
 
 - Run one `chaintable` command per shell call, without `;`, `&&`, pipes or loops: read-only commands are pre-approved
   only as single commands, and anything chained asks the user.
-- Output is JSON when not on a terminal. Keep it small: `--fields a,b`, a low `--limit`, `-o ndjson` for rows. A field
-  the result lacks is reported on stderr as `{"warning": …}` with the available fields; use those names.
+- Output is JSON when not on a terminal. Keep it small: `--fields a,b` (filters each item and keeps the response's
+  shape), a low `--limit`, `-o ndjson` for rows. A field the result lacks is reported on stderr as
+  `{"warning": …}` with the available fields; use those names.
+- A write prints the resource the API returns, or `{"ok": true, "id": …}` when it returns none; do not read it back
+  to check.
 - Large results: `--out <file>` writes everything and prints `{path, bytes, rows}`; read the file instead of printing it.
 - Exit code 0 means success. Otherwise the last stderr line is JSON: `message`, `code`, `http_status`, `retryable`, `hint`. Follow `hint`.
 - Retry only when `retryable` is true (exit codes 7, 8, 9). Never retry 2–6 unchanged.
@@ -93,8 +96,10 @@ Run the user's request directly; handle setup only when a command says so:
 
 Calls share the account's rate limit, and reads may briefly miss a write that just happened. So:
 
-- Reads that do not depend on each other may run in parallel, at most 3 at a time; for many similar reads, such as
-  one `table get` per table, run them in batches of 3.
+- Several resources by id: pass them comma separated to one `get` command, for example
+  `chaintable table get --id token.token.eth,token.token_transfer.eth --fields id,columns`. The CLI fetches them 3 at
+  a time and prints `{"items": […]}` in the order given; an id that failed is an item with `error`.
+- Other reads that do not depend on each other may run in parallel, at most 3 at a time.
 - Creates, updates, deletes and runs go one at a time: wait for each result and use the id and data it returns
   instead of reading the resource back.
 - One long-running command per account at a time (`--wait`, `--follow`, `table row export`). After a timeout (exit 9),
