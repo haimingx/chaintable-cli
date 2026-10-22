@@ -1,6 +1,6 @@
 # chaintable
 
-An experimental command-line client for [Chaintable](https://chaintable.com), the data and compute platform for on-chain applications, built for terminals and coding agents such as Claude Code and Codex.
+A command-line client for [Chaintable](https://chaintable.com), the data and compute platform for on-chain applications, built for terminals and coding agents such as Claude Code and Codex.
 
 - **Query on-chain data with SQL**: indexed blocks, transactions, transfers, tokens and prices, including state at past blocks.
 - **Read live data**: table rows by key or filter, and chain state (balances, code, storage, contract reads) through Leafage.
@@ -47,7 +47,7 @@ chaintable completion fish > ~/.config/fish/completions/chaintable.fish  # fish
 ### Update
 
 ```sh
-chaintable update              # newest release; --version v0.1.0-beta.4 for a specific one, --check to only look
+chaintable update              # newest release; --version v0.1.0 for a specific one, --check to only look
 ```
 
 It verifies the download like the install script (checksum, and signature when cosign is installed) and replaces the binary in one atomic rename; login and settings stay. Rerunning the install command does the same. On a terminal, chaintable checks GitHub for a newer release at most once a day and prints a notice; it never does in scripts, CI or agents, and `CHAINTABLE_NO_UPDATE_NOTIFIER=1` turns it off. A binary installed by a package manager is updated with that package manager.
