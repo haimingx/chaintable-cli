@@ -63,6 +63,8 @@ It verifies the download like the install script (checksum, and signature when c
 codex plugin marketplace upgrade chaintable    # Codex
 ```
 
+Start a new agent session after updating the plugin. A plugin does not update a separate copy of the skill in `~/.agents/skills`, `~/.codex/skills` or `~/.claude/skills`, and the agent loads that copy next to the plugin; `chaintable update` and `chaintable skill sync` name such copies. Delete them when you use the plugin.
+
 ## Quick start
 
 1. Create a personal access token on chaintable.com.
@@ -114,7 +116,7 @@ codex plugin marketplace add haimingx/chaintable-cli
 codex plugin add chaintable@chaintable
 ```
 
-If you installed the skill before with `chaintable skill install ~/.codex/skills`, delete `~/.codex/skills/chaintable` so it does not load twice.
+If a chaintable skill is also in `~/.codex/skills` or `~/.agents/skills`, delete that copy so the plugin's skill is the only one loaded.
 
 
 Codex's sandbox blocks network access by default. Enable it in `~/.codex/config.toml`:
