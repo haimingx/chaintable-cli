@@ -129,8 +129,8 @@ Calls share the account's rate limit, and reads may briefly miss a write that ju
 ## Find data
 
 Read `references/data.md` first: the platform's `chaintable` and `debank` accounts maintain public datasets (`chain`,
-`token`, `price`, `balance`, …) that answer most questions; prefer them. Lists without `--space` also include other
-accounts' public resources. For the user's own, list their spaces with
+`token`, `price`, `balance`, …) that answer most questions; prefer them. Lists without `--space` also include
+public resources of other accounts. For the user's own resources, list their spaces with
 `chaintable space list --space-account-id <account_id>` (from `auth status`), then pass `--space` to each list.
 
 ```sh

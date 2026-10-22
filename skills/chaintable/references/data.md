@@ -64,8 +64,8 @@ Schedules of other accounts are private; judge how current a table is by its row
 
 ## Community data
 
-`chaintable space list` shows every public space, including other accounts'. For a topic the maintainer spaces do not
-cover:
+`chaintable space list` shows every public space, including those of other accounts. For a topic the maintainer
+spaces do not cover:
 
 - Prefer spaces whose tables others build on (`dep_count`), with real content (`table_count`, `content_count`) and a
   recent `updated_at`; skip test spaces.
