@@ -27,6 +27,9 @@ ORDER BY 1
 ```
 
 - Bound large tables by time or block range; unbounded scans are slow and costly.
+- For "the latest N blocks", run `SELECT max(block_height)` first, then query the fixed range with literal heights.
+  Computing the bound in the same query (a self-join or subquery on a block table) scans the whole table and can
+  exceed the engine's memory.
 - Timestamps are UTC. Use half-open ranges (`>=` start, `<` end).
 - Addresses and hashes are lowercase hex strings.
 
