@@ -52,18 +52,18 @@ chaintable update              # newest release; --version v0.1.0-beta.4 for a s
 
 It verifies the download like the install script (checksum, and signature when cosign is installed) and replaces the binary in one atomic rename; login and settings stay. Rerunning the install command does the same. On a terminal, chaintable checks GitHub for a newer release at most once a day and prints a notice; it never does in scripts, CI or agents, and `CHAINTABLE_NO_UPDATE_NOTIFIER=1` turns it off. A binary installed by a package manager is updated with that package manager.
 
-`chaintable update` and the install command also refresh skills installed with `chaintable skill install`. Plugins belong to Claude Code and Codex, which update them by version:
+`chaintable update` then brings the skill everywhere it is installed to the new version: it updates the Claude Code and Codex plugins through their own CLIs (`claude`, `codex`; skip with `--no-plugins`) and rewrites skills installed with `chaintable skill install`. Start a new agent session afterwards: a running session keeps the skill it loaded. `chaintable skill sync` does the same for the installed binary. Without the agents' CLIs on PATH, update the plugin in the agent:
 
 ```text
 /plugin marketplace update chaintable          # Claude Code, then
-/plugin update chaintable@chaintable           # and restart Claude Code; /plugin can also update it automatically
+/plugin update chaintable@chaintable           # and restart Claude Code
 ```
 
 ```sh
 codex plugin marketplace upgrade chaintable    # Codex
 ```
 
-Start a new agent session after updating the plugin. A plugin does not update a separate copy of the skill in `~/.agents/skills`, `~/.codex/skills` or `~/.claude/skills`, and the agent loads that copy next to the plugin; `chaintable update` and `chaintable skill sync` name such copies. Delete them when you use the plugin.
+A plugin does not update a separate copy of the skill in `~/.agents/skills`, `~/.codex/skills` or `~/.claude/skills`, and the agent loads that copy next to the plugin; `chaintable update` and `chaintable skill sync` name such copies. Delete them when you use the plugin.
 
 ## Quick start
 
