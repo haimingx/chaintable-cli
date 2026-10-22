@@ -72,7 +72,7 @@ codex plugin marketplace upgrade chaintable    # Codex
    chaintable auth login
    ```
 
-   If the token can act for several accounts, login lists them and asks which one to use; that account is billed for API calls. `chaintable auth status` shows the current account. Switch with `chaintable account use` (choose from a list), `chaintable account use <name or id>`, or pass `--account-id` to a single command; on a terminal, commands that may change data first print `Acting for <account>`.
+   If the token can act for several accounts, login lists them and asks which one to use; that account is billed for API calls. `chaintable auth status` shows the current account and when you logged in; `chaintable auth login --remark "work laptop, token cli-mac"` adds a note of your own, such as the token's name, kept only on this machine. Switch with `chaintable account use` (choose from a list), `chaintable account use <name or id>`, or pass `--account-id` to a single command; on a terminal, commands that may change data first print `Acting for <account>`.
 
 3. Run commands. They mirror the API: `chaintable <resource> [sub-resource] <action>`.
 

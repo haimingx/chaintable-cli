@@ -69,7 +69,8 @@ Run the user's request directly; handle setup only when a command says so:
 - `no account selected`: the token can act for several accounts, and the selected one is billed. Show
   `chaintable account list` and ask which to use, then run `chaintable account use <id>`. Never pick one yourself;
   for a one-off call on another account the user names, pass `--account-id <id>` instead of switching.
-- `chaintable auth status` checks the token and shows `account_id`, `account_name` and `accounts`; it is free.
+- `chaintable auth status` checks the token and shows `account_id`, `account_name`, `accounts`, `logged_in_at` and the
+  user's `remark`; it is free.
 - A command or flag in this skill rejected as unknown (exit 2) means the CLI is older than the skill: ask the user to run
   `! chaintable update`. Do not guess other flags.
 
