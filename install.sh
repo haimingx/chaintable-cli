@@ -32,15 +32,25 @@ arm64 | aarch64) arch=arm64 ;;
 *) fail "unsupported architecture $(uname -m)" ;;
 esac
 
+api() {
+	curl -fsSL -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" "https://api.github.com/repos/$repo/$1"
+}
+
 tag=${CHAINTABLE_VERSION:-}
 if [ -z "$tag" ]; then
 	# /releases/latest skips pre-releases and the list is not in release order (v0.1.0-beta.10 sorts
 	# before beta.2), so take the most recently published release.
-	tag=$(curl -fsSL "https://api.github.com/repos/$repo/releases?per_page=100" |
+	tag=$(api "releases?per_page=100" |
 		awk -F'"' '/"tag_name":/ { tag = $4 } /"published_at": "/ { print $4, tag }' |
-		sort -r | head -n 1 | cut -d ' ' -f 2) ||
-		fail "could not list releases; set CHAINTABLE_VERSION to a tag from https://github.com/$repo/releases"
-	[ -n "$tag" ] || fail "no release found"
+		sort -r | head -n 1 | cut -d ' ' -f 2) || tag=""
+fi
+if [ -z "$tag" ]; then
+	# GitHub's cache can serve an empty release list for minutes after a release: take the highest
+	# version tag instead ("~" sorts a pre-release before its final release), if it has a release.
+	tag=$(api "tags?per_page=100" | awk -F'"' '/"name": "v/ { print $4 }' |
+		sed 's/-/~/' | sort -V | tail -n 1 | sed 's/~/-/') || tag=""
+	[ -n "$tag" ] && api "releases/tags/$tag" >/dev/null 2>&1 ||
+		fail "could not find the newest release; set CHAINTABLE_VERSION to a tag from https://github.com/$repo/releases"
 fi
 archive="chaintable_${tag#v}_${os}_${arch}.tar.gz"
 base="https://github.com/$repo/releases/download/$tag"
