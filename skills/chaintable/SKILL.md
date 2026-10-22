@@ -128,7 +128,9 @@ Calls share the account's rate limit, and reads may briefly miss a write that ju
 
 ## Find data
 
-Lists without `--space` include public resources of other accounts. For the user's own, list their spaces with
+Read `references/data.md` first: the platform's `chaintable` and `debank` accounts maintain public datasets (`chain`,
+`token`, `price`, `balance`, …) that answer most questions; prefer them. Lists without `--space` also include other
+accounts' public resources. For the user's own, list their spaces with
 `chaintable space list --space-account-id <account_id>` (from `auth status`), then pass `--space` to each list.
 
 ```sh
@@ -166,6 +168,8 @@ what it is, its types and when to use each, its data model and rules, the comman
 | Schedules | `schedules.md` | `crontab` (UTC) or `perpetual` (notebooks); every run is billed |
 | Accounts, spaces, usage | `accounts.md` | Public spaces are readable by everyone; the user picks the account |
 | Chain calls | `chain.md` | Numeric chain id, optional block, hex wei |
+| Public datasets | `data.md` | Which maintained table answers what; prefer derived tables over raw `chain` ones |
+| Reference code | `examples.md` | Working pipelines, functions and dashboards to read before writing new ones |
 
 Product documentation for agents: https://docs.chaintable.com/llms.txt (one Markdown page per topic).
 

@@ -31,9 +31,16 @@ chaintable notebook instance cancel --id <instance-id>
 instance running. Logs can reach the log store minutes after they are written: when `--follow` ends with a
 `no log lines … yet` warning, the run itself finished; read the logs later with `notebook instance logs`.
 
+## Variables
+
+Keep API keys and other settings in account variables, never in code, arguments or tables. Create them on
+chaintable.com (account menu, Variables) in the account that owns the notebook; the CLI cannot set them. Read them in
+the script with `from chaintable import variables; variables.get('NAME', default)`, which returns a string, or the
+default when the name is missing.
+
 ## Pipelines
 
-A pipeline, built in a notebook with the BlockX SDK, turns source-table records into function calls and writes the
+Before writing one, read a working pipeline in `references/examples.md`. A pipeline, built in a notebook with the BlockX SDK, turns source-table records into function calls and writes the
 returned records to a target table, keeping its block coverage:
 
 - `sources`: source table ids, each with the function id, an argument template (`ROW` is the source record) and an

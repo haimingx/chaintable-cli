@@ -10,17 +10,7 @@ Queries run on Trino. Use Trino SQL syntax and functions.
   Append `._archive` for history, for example `demo.pool_reserves.eth._archive`.
 - Check columns before writing SQL: `chaintable table get --id <table-id>`.
 
-Common public spaces (`eth` is Ethereum mainnet):
-
-| Space | Data | Examples |
-|---|---|---|
-| `chain` | Blocks, transactions, events, traces | `chain.block.eth`, `chain.tx.eth`, `chain.event.eth`, `chain.trace.eth` |
-| `token` | Token metadata, transfers, approvals | `token.token.eth`, `token.token_transfer.eth`, `token.token_approve.eth` |
-| `nft` | Collections, transfers, approvals | `nft.collection.eth`, `nft.nft_transfer.eth` |
-| `contract` | Contract creation, code hashes, proxies | `contract.contract.eth` |
-| `price` | Latest and historical USD prices | `price.price.eth` |
-| `address` | Assets received, chains used | `address.address_received_token.eth`, `address.address_used_chain` |
-| `cex` | Exchanges, listings, pair markets | `cex.cex_pair_rate`, `cex.cex_pair_kline_1d` |
+Which public table answers which question, and who maintains it: `references/data.md`.
 
 ## Example
 

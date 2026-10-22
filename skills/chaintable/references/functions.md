@@ -3,7 +3,7 @@
 A function is a short BlockX computation with defined inputs and outputs, saved in a space and called by id
 `space.name`: parse an event, convert an amount, read an object's state at a block and derive a price. Callers are
 `function invoke` (the API), other functions, notebooks and pipelines; each passes positional arguments and gets the
-return value.
+return value. Before writing one, read a similar working function in `references/examples.md`.
 
 ## Execution model
 
