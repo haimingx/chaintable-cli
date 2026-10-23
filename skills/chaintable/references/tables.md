@@ -70,11 +70,16 @@ A table is created without columns, then initialized once. A block table's name 
 
 ```sh
 chaintable table create --space <space> --name asset_notes --table-type normal
-chaintable table init --id <space>.asset_notes --columns '[{"id":"id","name":"id","type":"STRING"},{"id":"symbol","name":"symbol","type":"STRING"},{"id":"amount","name":"amount","type":"UINT256"}]' --indexes '[{"columns":["symbol"]}]'
+chaintable table init --id <space>.asset_notes --columns '[{"name":"id","type":"STRING"},{"name":"symbol","type":"STRING"},{"name":"amount","type":"UINT256"}]' --indexes '[{"columns":["symbol"]}]'
 chaintable table create --space <space> --name pool_reserves.eth --table-type block_state --chain-id eth
 ```
 
-`table columns update` and `table indexes update` change an initialized table.
+Leave column ids out: the CLI derives them from the table id and column name, as the web app does. Column ids are
+unique across all tables, so a made-up id such as the column name fails. Initialization is one-time: if it fails with
+exit 8, do not retry the same table; report it, and create the table under a new name if the user agrees.
+
+`table columns update` and `table indexes update` change an initialized table. Pass every column to keep with the id
+`table get` shows for it; new columns leave the id out.
 
 Docs: https://docs.chaintable.com/guides/tables/model.md, https://docs.chaintable.com/guides/tables/create-and-manage.md,
 https://docs.chaintable.com/guides/tables/advanced.md, https://docs.chaintable.com/reference/data-types.md,
