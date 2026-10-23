@@ -74,12 +74,13 @@ chaintable table init --id <space>.asset_notes --columns '[{"name":"id","type":"
 chaintable table create --space <space> --name pool_reserves.eth --table-type block_state --chain-id eth
 ```
 
-Leave column ids out: the CLI derives them from the table id and column name, as the web app does. Column ids are
-unique across all tables, so a made-up id such as the column name fails. Initialization is one-time: if it fails with
-exit 8, do not retry the same table; report it, and create the table under a new name if the user agrees.
+Leave column ids out, as the web app does: the CLI gives new columns their ids, and column ids are unique across all
+tables, so a made-up id such as the column name fails. Initialization is one-time: if it fails, the error is not
+retryable; tell the user, and create the table under a new name if they agree.
 
-`table columns update` and `table indexes update` change an initialized table. Pass every column to keep with the id
-`table get` shows for it; new columns leave the id out.
+`table columns update` and `table indexes update` change an initialized table. `table columns update` takes every
+column to keep, still without ids: columns named as before keep their data, new names are added and missing ones are
+dropped with their data. To rename a column, pass its `id` from `table get` with the new name.
 
 Docs: https://docs.chaintable.com/guides/tables/model.md, https://docs.chaintable.com/guides/tables/create-and-manage.md,
 https://docs.chaintable.com/guides/tables/advanced.md, https://docs.chaintable.com/reference/data-types.md,
