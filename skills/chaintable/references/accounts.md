@@ -21,6 +21,10 @@ resource id (`token.token_transfer.eth`, `demo.usdc_amount`).
 - Lists without `--space` include public resources of other accounts. For the user's own resources, list their spaces
   with `chaintable space list --space-account-id <account_id>`, then pass `--space` to each list.
 - Resources in another account's public space can be read, not changed.
+- New space: `chaintable space check-id --id <id>` (3–64 lowercase letters, digits and underscores, starting with a
+  letter), then `chaintable space create --id <id>` in the selected account; only `public` is accepted for now. The id
+  cannot change later. `space update` changes the description or visibility; `space delete --yes` deletes it (space
+  admin). `space stats --id <space>` counts its resources.
 
 ## Usage and limits
 

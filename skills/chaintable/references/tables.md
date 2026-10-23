@@ -76,11 +76,16 @@ chaintable table create --space <space> --name pool_reserves.eth --table-type bl
 
 Leave column ids out, as the web app does: the CLI gives new columns their ids, and column ids are unique across all
 tables, so a made-up id such as the column name fails. Initialization is one-time: if it fails, the error is not
-retryable; tell the user, and create the table under a new name if they agree.
+retryable; tell the user, and with their agreement delete the table (`table delete --id <table-id> --yes`) and create it
+again.
 
 `table columns update` and `table indexes update` change an initialized table. `table columns update` takes every
 column to keep, still without ids: columns named as before keep their data, new names are added and missing ones are
-dropped with their data. To rename a column, pass its `id` from `table get` with the new name.
+dropped with their data. To rename a column, pass its `id` from `table get` with the new name; adding a column under
+the old name must wait for a second update.
+
+`table truncate` deletes every row and keeps the definition; `table delete` removes the table with its data, and the id
+can be used again. Both need the space admin role and `--yes`, and cannot be undone: confirm with the user first.
 
 Docs: https://docs.chaintable.com/guides/tables/model.md, https://docs.chaintable.com/guides/tables/create-and-manage.md,
 https://docs.chaintable.com/guides/tables/advanced.md, https://docs.chaintable.com/reference/data-types.md,
