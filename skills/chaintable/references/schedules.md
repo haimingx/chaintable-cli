@@ -1,7 +1,7 @@
 # Schedules
 
-A schedule runs saved content automatically, in a space owned by the selected account. Every run is billed and, for
-notebooks, holds compute while it runs; agree on the frequency with the user.
+A schedule runs saved content automatically, for the account that owns its space. For notebooks, every run holds
+compute from that account's quota while it runs; agree on the frequency with the user.
 
 | Content (`--content-type`) | Each run |
 |---|---|

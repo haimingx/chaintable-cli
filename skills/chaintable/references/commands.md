@@ -42,14 +42,14 @@ flags `query run --wait`, `notebook run --follow` and `table row export` are des
 - `chaintable notebook instance cancel`: Cancel a notebook execution. `--id`*
 - `chaintable notebook instance get`: Get a notebook execution. `--id`*
 - `chaintable notebook instance keepalive`: Keep a foreground notebook execution alive for 150 more seconds. `--id`*
-- `chaintable notebook instance list`: List notebook executions of the account. `--display-status` (running|succeeded|failed|canceled) `--keyword` `--launched` (manual|schedule) `--limit` `--name` `--notebook-id` `--schedule-id` `--start`
+- `chaintable notebook instance list`: List notebook executions of the account. `--account-id`* `--display-status` (running|succeeded|failed|canceled) `--keyword` `--launched` (manual|schedule) `--limit` `--name` `--notebook-id` `--schedule-id` `--start`
 - `chaintable notebook instance logs`: Read a notebook execution's logs. `--id`* `--timestamp`
 - `chaintable notebook instance metrics blockx`: Get a notebook execution's data access metrics. `--id`*
 - `chaintable notebook instance metrics container`: Get a notebook execution's container metrics. `--id`*
 - `chaintable notebook instance set-background`: Move a foreground notebook execution to the background. `--background` `--id`*
 - `chaintable notebook instance specs`: List the CPU and memory options for executions
 - `chaintable notebook list`: List notebooks. `--direction` `--limit` `--name` `--order-by` (id|name|created_at|updated_at) `--schedule-space` `--space` `--start` `--with-schedule`
-- `chaintable notebook run`: Run a saved notebook or notebook code. `--arguments` `--background` `--code` `--id` `--max-cpu`* `--max-memory`* `--notebook-debug` `--parameters`
+- `chaintable notebook run`: Run a saved notebook or notebook code. `--account-id`* `--arguments` `--background` `--code` `--id` `--max-cpu`* `--max-memory`* `--notebook-debug` `--parameters`
 - `chaintable notebook update`: Update a notebook. `--code` `--id`* `--language` (python) `--name` `--parameters`
 
 ## query
@@ -90,12 +90,12 @@ flags `query run --wait`, `notebook run --follow` and `table row export` are des
 - `chaintable space check-id`: Check whether a space id is available. `--id`*
 - `chaintable space content entity batch-get`: Read resources of several types in one call. `--entities`*
 - `chaintable space content parse`: Resolve a table or function id to resources. `--content-id`* `--content-type`* (query|dashboard|notebook|table|field|function|contract|chain|schedule)
-- `chaintable space create`: Create a space. `--description` `--id` (generated if omitted) `--visibility` (public|org|private)
+- `chaintable space create`: Create a space. `--account-id`* `--description` `--id` (generated if omitted) `--visibility` (public|org|private)
 - `chaintable space delete`: Delete a space. `--id`*
 - `chaintable space discover core`: List the featured public spaces
 - `chaintable space discover search`: Search public spaces. `--exclude-core` `--limit` `--q` `--start`
 - `chaintable space get`: Get a space and its account. `--id`*
-- `chaintable space list`: List the spaces visible to you. `--direction` `--limit` `--order-by` (id|created_at|updated_at) `--space-account-id` `--start`
+- `chaintable space list`: List the spaces visible to you. `--account-id` `--direction` `--limit` `--order-by` (id|created_at|updated_at) `--start`
 - `chaintable space notebook search`: Search notebooks by name. `--direction` `--id` `--limit` `--name` `--order-by` (created_at|updated_at) `--schedule-space` `--start`
 - `chaintable space stats`: Count the resources in a space. `--id`*
 - `chaintable space table search`: Search tables by name. `--direction` `--id` `--limit` `--name` `--order-by` (created_at|updated_at) `--start`
@@ -123,6 +123,7 @@ flags `query run --wait`, `notebook run --follow` and `table row export` are des
 - `chaintable table start-height editable`: Check whether a block table's start height can be changed. `--id`*
 - `chaintable table start-height update`: Change the start height of a block table that has not started. `--id`* `--start-height`*
 - `chaintable table stats block`: Show write statistics for a block table's recent blocks. `--id`* `--recent`
+- `chaintable table stats block-completeness`: Show which height ranges of a block table have been written. `--id`*
 - `chaintable table stats daily`: Show daily statistics for a time table. `--from` `--id`* `--to` `--year`
 - `chaintable table stats minute`: Show per-minute statistics for a time table. `--id`* `--minutes`
 - `chaintable table templates`: Get the table templates for a table type. `--table-type` (normal|block_event|block_state|time)

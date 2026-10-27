@@ -9,7 +9,7 @@ A command-line client for [Chaintable](https://chaintable.com), the data and com
 
 > Unofficial and in active development: commands and output may change between releases. We improve it from community feedback, so please [open an issue](https://github.com/haimingx/chaintable-cli/issues) for problems and ideas.
 >
-> Using the Chaintable services through it is governed by the [Chaintable Terms of Service](https://chaintable.com/docs/terms), including the restrictions of your service edition; every API call is billed to your account. Data and results are not investment advice.
+> Using the Chaintable services through it is governed by the [Chaintable Terms of Service](https://chaintable.com/docs/terms), including the restrictions of your service edition. Data and results are not investment advice.
 
 ## Install
 
@@ -67,6 +67,9 @@ A plugin does not update a separate copy of the skill in `~/.agents/skills`, `~/
 
 ## Quick start
 
+Query commands work without login and read public data. Log in to change resources, run notebooks and schedules, and to
+read the private data of your accounts.
+
 1. Create a personal access token on chaintable.com.
 2. Log in. The token is read without echo and kept in an owner-only file (`~/.config/chaintable/credentials.json`, mode 0600) that coding agents' sandboxes, CI and containers can read; `--keychain` keeps it in the system keychain instead, which agent sandboxes cannot reach:
 
@@ -74,7 +77,7 @@ A plugin does not update a separate copy of the skill in `~/.agents/skills`, `~/
    chaintable auth login
    ```
 
-   If the token can act for several accounts, login lists them and asks which one to use; that account is billed for API calls. `chaintable auth status` shows the current account and when you logged in; `chaintable auth login --remark "work laptop, token cli-mac"` adds a note of your own, such as the token's name, kept only on this machine. Switch with `chaintable account use` (choose from a list), `chaintable account use <name or id>`, or pass `--account-id` to a single command; on a terminal, commands that may change data first print `Acting for <account>`.
+   `space create`, `notebook run` and `notebook instance list` need an account. If you belong to several, login lists them and asks which one to use. `chaintable auth status` shows the selected account and when you logged in; `chaintable auth login --remark "work laptop, token cli-mac"` adds a note of your own, such as the token's name, kept only on this machine. Switch with `chaintable account use` (choose from a list), `chaintable account use <name or id>`, or pass `--account-id` to a single command; on a terminal, a create or run that uses the selected account first prints `Acting for <account>`.
 
 3. Run commands. They mirror the API: `chaintable <resource> [sub-resource] <action>`.
 
@@ -89,9 +92,9 @@ A plugin does not update a separate copy of the skill in `~/.agents/skills`, `~/
    chaintable api GET '/v1/space/list?limit=5'                      # any endpoint without a command
    ```
 
-Every authenticated API call is billed to the selected account; `chaintable auth status` (which checks the token with the API; `--offline` shows the saved state) and `chaintable account list` are free.
+CLI calls are not billed; they are rate limited per IP address. `chaintable auth status` checks the token with the API; `--offline` shows the saved state.
 
-In CI, set `CHAINTABLE_TOKEN` and, for a token with several accounts, `CHAINTABLE_ACCOUNT_ID` instead of logging in. The CLI uses personal access tokens only; API keys are for services that call functions and chain nodes directly.
+In CI, set `CHAINTABLE_TOKEN` and, when you belong to several accounts, `CHAINTABLE_ACCOUNT_ID` instead of logging in. The CLI uses personal access tokens only; API keys are for services that call the API directly and are billed to their account.
 
 A coding agent can read anything the CLI can, so treat the token on an agent's machine as exposed to it: give each machine its own token with a short expiry, and revoke it on chaintable.com when the machine no longer needs it. On a terminal, chaintable reminds you a week before the saved token expires; `chaintable auth status` shows `expires_in_days`. The skill tells agents never to read or print the token, and the permissions below keep Claude Code from reading the file.
 
@@ -148,7 +151,7 @@ Output is a table on a terminal and JSON otherwise; use `-o ndjson` for rows, `-
 | 1 | Ran but failed (query error, failed function or notebook) |
 | 2 | Usage error or rejected input |
 | 3 | Not logged in or invalid credential |
-| 4 | No permission, wrong account or no compute units |
+| 4 | No permission or wrong account |
 | 5 | Not found |
 | 6 | Conflict |
 | 7 | Rate limited |

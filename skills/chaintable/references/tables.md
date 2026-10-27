@@ -51,7 +51,7 @@ derive it from events or keep it in a `block_state` table.
 |---|---|
 | Rows by primary key | `chaintable table row get --table-id <id> --pks '["usdc"]'` |
 | A page of rows, or a simple filter | `chaintable table row list --table-id <id> --limit 50`, `chaintable table row query --table-id <id> --sql "SELECT * FROM <id> WHERE … LIMIT 100"` (only `SELECT *` with `WHERE`, `ORDER BY` and `LIMIT`) |
-| Every row | `chaintable table row export <id> --out rows.ndjson` (10000 rows per billed page) |
+| Every row | `chaintable table row export <id> --out rows.ndjson` (10000 rows per page) |
 | Aggregation, joins, history | SQL (`query run --wait`) |
 | Writes | `chaintable table row create`, `table row update`, `table row delete`, on `normal` tables only; `create` on an existing `id` updates the fields given |
 

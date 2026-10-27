@@ -66,7 +66,5 @@ while writes still ask, and to keep the agent from reading the saved token, add 
 }
 ```
 
-Read-only calls are still billed, except `chaintable auth status` and `chaintable account list`.
-
 When Claude Code's Bash sandbox is on, allow network access to `api.chaintable.com`.
 In Codex CLI, enable network access for the workspace; without a reachable keychain, set `CHAINTABLE_TOKEN` and `CHAINTABLE_ACCOUNT_ID`.
