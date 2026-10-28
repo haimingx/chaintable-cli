@@ -19,7 +19,7 @@ The `chaintable` and `debank` accounts are the platform's own: prefer their tabl
 
 - `chaintable chain list` lists every chain; only chains with status `supported` have tables. A `developing` chain has
   none yet: say so instead of searching.
-- Table ids use the chain name (`eth`, `base`, `arb`); `rpc` uses the numeric chain id (`1`, `8453`). `chain.chain`
+- Table ids and `rpc` use the chain name (`eth`, `base`, `arb`); `rpc` also takes the numeric chain id (`1`, `8453`). `chain.chain`
   holds both, with each chain's native token.
 
 ## Spaces

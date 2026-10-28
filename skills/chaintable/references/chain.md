@@ -1,11 +1,11 @@
 # Chain calls
 
-`chaintable rpc <chain_id>` reads chain state through Leafage: blocks, balances, nonces, code, storage and read-only
+`chaintable rpc <chain>` reads chain state through Leafage: blocks, balances, nonces, code, storage and read-only
 contract calls at a block. It never sends transactions. Use it for current or block-specific state that no table
 holds; use tables for history and anything already indexed.
 
-- `<chain_id>` is the numeric chain id (`1` for Ethereum); tables name chains (`eth`). `chaintable chain list` maps
-  them and lists the supported chains.
+- `<chain>` is the chain name used in table ids (`eth`, `base`) or its numeric chain id (`1`, `8453`); a name costs
+  one extra chain list call. `chaintable chain list` lists both for every supported chain.
 - Methods (`chaintable schema rpc` lists them): `getLatestBlock`, `getBlockById`, `getBlockByHeight`, `blockIsValid`,
   `getAddressBalance`, `getAddressNonce`, `getAddressCode`, `getStorageAt`, `contractMultiCall`.
 - Address and state methods take an optional block as the last parameter, `{"type": "Equals", "block_id": "latest"}`
@@ -15,9 +15,9 @@ holds; use tables for history and anything already indexed.
 - A JSON-RPC `error` in the response exits 1 with the message.
 
 ```sh
-chaintable rpc 1 --method getLatestBlock
-chaintable rpc 1 --method getAddressBalance --params '["0x…", {"type": "Equals", "block_id": "latest"}]'
-chaintable rpc 1 --method contractMultiCall --params '[[{"to": "0x…", "data": "0x313ce567"}], {"type": "Equals", "block_id": "latest"}]'
+chaintable rpc eth --method getLatestBlock
+chaintable rpc eth --method getAddressBalance --params '["0x…", {"type": "Equals", "block_id": "latest"}]'
+chaintable rpc eth --method contractMultiCall --params '[[{"to": "0x…", "data": "0x313ce567"}], {"type": "Equals", "block_id": "latest"}]'
 ```
 
 `contractMultiCall` takes a list of calls (`to`, ABI-encoded `data`) and returns one entry per call in

@@ -49,12 +49,18 @@ derive it from events or keep it in a `block_state` table.
 
 | Need | Command |
 |---|---|
-| Rows by primary key | `chaintable table row get --table-id <id> --pks '["usdc"]'` |
-| A page of rows, or a simple filter | `chaintable table row list --table-id <id> --limit 50`, `chaintable table row query --table-id <id> --sql "SELECT * FROM <id> WHERE … LIMIT 100"` (only `SELECT *` with `WHERE`, `ORDER BY` and `LIMIT`) |
+| Rows by primary key | `chaintable table row get --table-id <id> --pks '["usdc"]'`; on a block state or time table it returns each id's latest value, for example the latest WETH price: `--table-id price.price.eth --pks '["0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"]'` |
+| Latest rows, or a simple filter | `chaintable table row query --table-id <id> --sql "SELECT * FROM <id> WHERE … ORDER BY block_height DESC LIMIT 100"` (only `SELECT *` with `WHERE`, `ORDER BY` and `LIMIT`), or `chaintable table row list --table-id <id> --order-by block_height --limit 50 --filter '[{"field":"token_id","op":"eq","value":"0x…"}]'` (`op`: `eq`, `neq`, `gt`, `lt`, `gte`, `lte`) |
 | Every row | `chaintable table row export <id> --out rows.ndjson` (10000 rows per page) |
 | Aggregation, joins, history | SQL (`query run --wait`) |
 | Writes | `chaintable table row create`, `table row update`, `table row delete`, on `normal` tables only; `create` on an existing `id` updates the fields given |
 
+- Always sort when you want recent rows: without `ORDER BY` (or `--order-by`) rows come in primary key order, which on
+  block tables starts at the first blocks.
+- Sort and filter on indexed columns (`chaintable table get --id <id> --fields indexes`): `block_height` or
+  `block_timestamp` on block tables, `time_at` on time tables, and indexes such as `(to_addr, block_timestamp)`.
+  Sorting by any other column scans the table and times out with exit 8; that is not transient: narrow the filter to
+  an indexed column or use SQL instead of retrying.
 - A write with an unknown column or a value of the wrong type fails with exit 8 (`50106`); it is not transient, so
   check the columns and types instead of retrying.
 - Writes to a column added moments ago can be dropped while the change spreads, for a minute or two: read the row

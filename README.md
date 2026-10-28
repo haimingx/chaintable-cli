@@ -86,7 +86,7 @@ read the private data of your accounts.
    chaintable table get --id token.token_transfer.eth
    chaintable query run --id <query-id> --code @query.sql --wait     # run, wait, print rows
    chaintable notebook run --id <id> --max-cpu 1 --max-memory 2 --follow
-   chaintable rpc 1 --method getLatestBlock
+   chaintable rpc eth --method getLatestBlock                       # chain name, or numeric id (1)
    chaintable commands                                              # every API command
    chaintable schema query run                                      # inputs of one command
    chaintable api GET '/v1/space/list?limit=5'                      # any endpoint without a command

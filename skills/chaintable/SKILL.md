@@ -125,8 +125,8 @@ Calls share a per-IP rate limit, and reads may briefly miss a write that just ha
 | Need | Use | Notes |
 |---|---|---|
 | Analysis, aggregation, joins, history | `query run --wait` (SQL) | Analytics copy that trails the online tables; read `references/sql.md` first |
-| Latest rows of one table, simple filter | `table row query`, `table row list`, `table row get` | Live data, one table, no joins |
-| Current chain state (balance, block, contract call) | `rpc <chain_id>` | Node state, not tables |
+| Latest rows of one table, simple filter | `table row query` sorted by an indexed column, `table row get` | Live data, one table, no joins; see `references/tables.md` |
+| Current chain state (balance, block, contract call) | `rpc <chain>` | Node state, not tables |
 | Reusable logic the user saved | `function invoke` | A new function needs about 2 minutes before it can be invoked |
 | Batch, backfill or continuous jobs | `notebook run` or a schedule | Starts a container; confirm first |
 
@@ -135,7 +135,7 @@ Calls share a per-IP rate limit, and reads may briefly miss a write that just ha
 - Ids are 32 hex characters; tables use `space.table[.chain]`, functions `space.name`.
 - Time fields are Unix seconds in UTC; convert them yourself instead of running a script.
 - Lists take `--limit` and `--start` and return `total_count`; page instead of raising `--limit` far.
-- `rpc` takes a numeric chain id (`1`), table ids a chain name (`eth`); `chaintable chain list` maps them.
+- Chains are named as in table ids (`eth`); `rpc` also takes the numeric chain id (`1`). `chaintable chain list` lists both.
 
 ## Find data
 
@@ -151,8 +151,8 @@ Pass `--space` to every resource list: without it, lists mix all accounts' publi
 
 ```sh
 chaintable table list --space token --name transfer --fields id,table_type
-chaintable table get --id token.token_transfer.eth        # columns and indexes
-chaintable table row query --table-id price.price.eth --sql "SELECT * FROM price.price.eth LIMIT 5"
+chaintable table get --id token.token_transfer.eth --fields columns,indexes   # sort and filter on indexed columns
+chaintable table row query --table-id token.token_transfer.eth --sql "SELECT * FROM token.token_transfer.eth WHERE token_id = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48' ORDER BY block_height DESC LIMIT 5"
 ```
 
 ## Run SQL
@@ -183,7 +183,7 @@ what it is, its types and when to use each, its data model and rules, the comman
 | Queries, visualizations, dashboards | `analytics.md` | Results are snapshots of a lagging copy; rerun for new data |
 | Schedules | `schedules.md` | `crontab` (UTC) or `perpetual` (notebooks); agree on the frequency |
 | Accounts, spaces, usage | `accounts.md` | Public spaces are readable by everyone; private ones need login |
-| Chain calls | `chain.md` | Numeric chain id, optional block, hex wei |
+| Chain calls | `chain.md` | Chain name or id, optional block, hex wei |
 | Public datasets | `data.md` | Which maintained table answers what; prefer derived tables over raw `chain` ones |
 | Reference code | `examples.md` | Working pipelines, functions and dashboards to read before writing new ones |
 
