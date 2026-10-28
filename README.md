@@ -94,6 +94,8 @@ read the private data of your accounts.
 
 CLI calls are not billed; they are rate limited per IP address. `chaintable auth status` checks the token with the API; `--offline` shows the saved state.
 
+Each request identifies the CLI in its `User-Agent`, for usage statistics: `chaintable-cli/<version> (<os>/<arch>; <caller>)`. The caller is the AI agent running the CLI when the agent's environment variables name one (`claude-code`, `codex`, …), `ci` in CI, otherwise `interactive` or `noninteractive` depending on whether stdin is a terminal. Nothing else about you, your machine or your commands is sent.
+
 In CI, set `CHAINTABLE_TOKEN` and, when you belong to several accounts, `CHAINTABLE_ACCOUNT_ID` instead of logging in. The CLI uses personal access tokens only; API keys are for services that call the API directly and are billed to their account.
 
 A coding agent can read anything the CLI can, so treat the token on an agent's machine as exposed to it: give each machine its own token with a short expiry, and revoke it on chaintable.com when the machine no longer needs it. On a terminal, chaintable reminds you a week before the saved token expires; `chaintable auth status` shows `expires_in_days`. The skill tells agents never to read or print the token, and the permissions below keep Claude Code from reading the file.
