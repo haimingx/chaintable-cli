@@ -140,9 +140,14 @@ Calls share a per-IP rate limit, and reads may briefly miss a write that just ha
 ## Find data
 
 Read `references/data.md` first: the platform's `chaintable` and `debank` accounts maintain public datasets (`chain`,
-`token`, `price`, `balance`, …) that answer most questions; prefer them. Lists without `--space` also include
-public resources of other accounts. For the user's own resources, list their spaces with
-`chaintable space list --account-id <account_id>` (from `auth status`), then pass `--space` to each list.
+`token`, `price`, `balance`, …) that answer most questions; prefer them. Find spaces in this order:
+
+1. `chaintable space discover core`: the curated official spaces.
+2. `chaintable space discover search --q <topic> --exclude-core`: other public spaces, most depended-on first.
+3. `chaintable space list --account-id <account_id>` (from `auth status`): the user's own spaces. Without
+   `--account-id` it sorts every readable space by last update, test spaces first; do not browse with it.
+
+Pass `--space` to every resource list: without it, lists mix all accounts' public resources by update time.
 
 ```sh
 chaintable table list --space token --name transfer --fields id,table_type

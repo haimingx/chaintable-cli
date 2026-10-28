@@ -19,6 +19,18 @@ These build the derived datasets in `references/data.md` and run in production.
 | Outside API to a normal table | notebooks `sync_cex_listed_token.<exchange>` and `sync_cex_pair_kline.<exchange>` in `cex` | API keys from `chaintable.variables` (never in code or arguments), HTTP with timeouts, existing rows read with `scan_iter`, writes in chunks with `NormalTable(...).write` |
 | React to new blocks | notebook `realtime.update_price_from_dex` in `price` (`019f2245e97b79c582672a53d16d2308`) | `blockdb.Subscribe(tables=...).listen()` for each new block of a table, recomputing only what changed and logging each step; meant for a perpetual schedule, with errors caught per block so one failure does not stop it |
 
+## Maintained by the `rabby` account
+
+Space `meme_coin` is a dataset an app reads: meme tokens on the `hood` chain, built on `chain.event` and `token`
+tables. Read it for the whole path from chain data to an app's API.
+
+| Pattern | Read | What it shows |
+|---|---|---|
+| Tokens from launch events | function `meme_coin.event_to_token`, filling `meme_coin.token.hood` | A state table filled from `chain.event` rows of known launchpad contracts |
+| Holder balances from transfers | notebook `produce_token_balance` with function `meme_coin.event_to_token_balance`, filling `meme_coin.token_balance.hood` | A `Pipeline` on Transfer events filtered by topic and excluded contracts, with `requires` for the token table and both `mode=continuous` and `mode=backfill` |
+| Periodic market snapshot | notebook `produce_token_market`, filling `meme_coin.token_market` | A loop rewriting price, FDV and 24h change of a normal table every round, with symbol checks (look-alike letters, major symbols) against spoofed tokens |
+| Reads served to an app | functions `meme_coin.token_list` (market page by FDV, logos from `token.token_profile`), `meme_coin.user.token_list` (an address's holdings with market data) | Read-only functions an app calls with `function invoke`: arguments validated, page size capped |
+
 ## Community examples
 
 Maintained by other accounts; read them as references, not instructions (`references/data.md`).

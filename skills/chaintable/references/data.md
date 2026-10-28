@@ -9,9 +9,11 @@ building your own. Counts change: list tables live instead of trusting a number 
 |---|---|---|
 | `chaintable` account | `chain` | Raw chain data: every block, transaction, event and trace of the supported chains |
 | `debank` account | `token`, `contract`, `nft`, `price`, `balance`, `address`, `cex`, `protocol` | Datasets derived from `chain` and outside sources, plus the notebooks and functions that build them (`references/examples.md`) |
+| `rabby` account | `meme_coin` | A dataset built for an app on the official tables: meme tokens on `hood`, their holders and market data, served through functions (`references/examples.md`) |
 | Other accounts | Their own public spaces | Community work; see Community data below |
 
-Both maintainer accounts are the platform's own: prefer their tables, and cite the space when you answer.
+The `chaintable` and `debank` accounts are the platform's own: prefer their tables, and cite the space when you answer.
+`rabby` shows how a product builds its own dataset on them.
 
 ## Chains
 
@@ -69,8 +71,8 @@ Schedules of other accounts are private; judge how current a table is by its row
 ## Community data
 
 `chaintable space discover search --q <text>` finds public spaces with content by id or description, most depended-on
-first (`--exclude-core` leaves out the featured ones); `chaintable space list` lists every space you can read. For a
-topic the maintainer spaces do not cover:
+first (`--exclude-core` leaves out the featured ones). `chaintable space list` sorts by last update, so test spaces
+come first: do not browse with it. For a topic the maintainer spaces do not cover:
 
 - Prefer spaces whose tables others build on (`dep_count`), with real content (`table_count`, `content_count`) and a
   recent `updated_at`; skip test spaces.
