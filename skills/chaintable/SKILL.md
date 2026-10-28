@@ -90,11 +90,11 @@ Run the user's request directly; handle setup only when a command says so:
 - Run one `chaintable` command per shell call, without `;`, `&&`, pipes or loops: read-only commands are pre-approved
   only as single commands, and anything chained asks the user.
 - Output is JSON when not on a terminal. Keep it small: `--fields a,b` (filters each item and keeps the response's
-  shape), a low `--limit`, `-o ndjson` for rows. A field the result lacks is reported on stderr as
-  `{"warning": …}` with the available fields; use those names.
+  shape), `-o ndjson` for rows, and always a bound on rows: SQL ends with `LIMIT n`, `row list` takes `--limit`
+  (without one, up to 10000 rows come back). A field the result lacks is reported on stderr as `{"warning": …}`.
 - A write prints the resource the API returns, or `{"ok": true, "id": …}` when it returns none; do not read it back
   to check.
-- Large results: `--out <file>` writes everything and prints `{path, bytes, rows}`; read the file instead of printing it.
+- With `--out <file>`, or over 256 KB, output goes to a file and stdout is `{path, bytes, rows}`; read the file in parts.
 - Exit code 0 means success. Otherwise the last stderr line is JSON: `message`, `code`, `http_status`, `retryable`, `hint`. Follow `hint`.
 - Retry only when `retryable` is true (exit codes 7, 8, 9). Never retry 2–6 unchanged.
 - Discover commands with `chaintable commands` and inputs with `chaintable schema <command words>` instead of guessing flags.
@@ -134,7 +134,7 @@ Calls share a per-IP rate limit, and reads may briefly miss a write that just ha
 
 - Ids are 32 hex characters; tables use `space.table[.chain]`, functions `space.name`.
 - Time fields are Unix seconds in UTC; convert them yourself instead of running a script.
-- Lists take `--limit` and `--start` and return `total_count`; page instead of raising `--limit` far.
+- Lists page with `--limit` and `--start`; stderr `{"more": {"next_start": …}}` means items remain. Do not raise `--limit` far.
 - Chains are named as in table ids (`eth`); `rpc` also takes the numeric chain id (`1`). `chaintable chain list` lists both.
 
 ## Find data
