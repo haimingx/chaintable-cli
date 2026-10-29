@@ -108,9 +108,9 @@ Run the user's request directly; handle setup only when a command says so:
 
 ## Concurrency
 
-Limits count calls per IP per minute: about 30 for computing commands (`query run`, `function run`/`invoke`, `rpc`,
-`notebook run`; batch them: several contract reads in one `contractMultiCall`, one SQL over a range), 120 for row
-reads, stats and search, 600 for the rest. Reads may briefly miss a write that just happened. So:
+Calls are rate limited per IP address per minute, separately for SQL runs, function calls, `rpc`, row reads and
+other calls; `query run` has the tightest limit. Batch work into fewer calls: one SQL over a range instead of one per
+item, several contract reads in one `contractMultiCall`. Reads may briefly miss a write that just happened. So:
 
 - Several resources by id: pass them comma separated to one `get` command, for example
   `chaintable table get --id token.token.eth,token.token_transfer.eth --fields id,columns`. The CLI fetches them 3 at

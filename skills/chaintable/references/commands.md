@@ -90,7 +90,7 @@ flags `query run --wait`, `notebook run --follow` and `table row export` are des
 - `chaintable space check-id`: Check whether a space id is available. `--id`*
 - `chaintable space content entity batch-get`: Read resources of several types in one call. `--entities`*
 - `chaintable space content parse`: Resolve a table or function id to resources. `--content-id`* `--content-type`* (query|dashboard|notebook|table|field|function|contract|chain|schedule)
-- `chaintable space create`: Create a space. `--account-id`* `--description` `--id` (generated if omitted) `--visibility` (public|org|private)
+- `chaintable space create`: Create a space. `--account-id`* `--description` `--id` (generated if omitted) `--visibility` (public|private)
 - `chaintable space delete`: Delete a space. `--id`*
 - `chaintable space discover core`: List the featured public spaces
 - `chaintable space discover search`: Search public spaces. `--exclude-core` `--limit` `--q` `--start`
@@ -99,7 +99,7 @@ flags `query run --wait`, `notebook run --follow` and `table row export` are des
 - `chaintable space notebook search`: Search notebooks by name. `--direction` `--id` `--limit` `--name` `--order-by` (created_at|updated_at) `--schedule-space` `--start`
 - `chaintable space stats`: Count the resources in a space. `--id`*
 - `chaintable space table search`: Search tables by name. `--direction` `--id` `--limit` `--name` `--order-by` (created_at|updated_at) `--start`
-- `chaintable space update`: Change a space's description or visibility. `--description` `--id`* `--visibility` (public|org|private)
+- `chaintable space update`: Change a space's description or visibility. `--description` `--id`* `--visibility` (public|private)
 
 ## table
 
