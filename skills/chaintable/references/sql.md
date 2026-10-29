@@ -33,9 +33,8 @@ ORDER BY 1
 - Timestamps are UTC. Use half-open ranges (`>=` start, `<` end).
 - Addresses and hashes are lowercase hex strings.
 
-SQL runs through a saved query: `query run --id <query-id> --code @file.sql --wait`. For ad-hoc questions, create one
-query (or reuse one you created earlier in the task) and pass each statement with `--code`, instead of creating a
-query per statement; delete the ones you created when the task is done unless the user wants to keep them.
+Run SQL with `query run --code @file.sql --wait`, with or without login; nothing is saved. Save a query
+(`references/analytics.md`) only when the user wants to keep the SQL, chart it or schedule it.
 
 ## Freshness
 

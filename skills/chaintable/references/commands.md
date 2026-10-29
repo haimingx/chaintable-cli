@@ -42,7 +42,7 @@ flags `query run --wait`, `notebook run --follow` and `table row export` are des
 - `chaintable notebook instance cancel`: Cancel a notebook execution. `--id`*
 - `chaintable notebook instance get`: Get a notebook execution. `--id`*
 - `chaintable notebook instance keepalive`: Keep a foreground notebook execution alive for 150 more seconds. `--id`*
-- `chaintable notebook instance list`: List notebook executions of the account. `--account-id`* `--display-status` (running|succeeded|failed|canceled) `--keyword` `--launched` (manual|schedule) `--limit` `--name` `--notebook-id` `--schedule-id` `--start`
+- `chaintable notebook instance list`: List notebook executions of an account, a notebook or a schedule. `--account-id` `--display-status` (running|succeeded|failed|canceled) `--keyword` `--launched` (manual|schedule) `--limit` `--name` `--notebook-id` `--schedule-id` `--start`
 - `chaintable notebook instance logs`: Read a notebook execution's logs. `--id`* `--timestamp`
 - `chaintable notebook instance metrics blockx`: Get a notebook execution's data access metrics. `--id`*
 - `chaintable notebook instance metrics container`: Get a notebook execution's container metrics. `--id`*

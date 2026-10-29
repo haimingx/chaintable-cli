@@ -33,7 +33,9 @@ instance running. Logs can reach the log store minutes after they are written: w
 
 ## Variables
 
-Keep API keys and other settings in account variables, never in code, arguments or tables. Create them on
+Keep API keys and other settings in account variables, never in code, arguments or tables: anyone who can
+read a notebook's space can read its executions, code and logs included, and an execution of code passed with
+`--code` alone can be read by anyone. Create them on
 chaintable.com (account menu, Variables) in the account that owns the notebook; the CLI cannot set them. Read them in
 the script with `from chaintable import variables; variables.get('NAME', default)`, which returns a string, or the
 default when the name is missing.

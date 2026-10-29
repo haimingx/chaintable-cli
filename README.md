@@ -1,11 +1,11 @@
 # chaintable
 
-A command-line client for [Chaintable](https://chaintable.com), the data and compute platform for on-chain applications, built for terminals and coding agents such as Claude Code and Codex.
+A command-line client for [Chaintable](https://chaintable.com), the data and compute platform for on-chain applications, built for terminals, coding agents such as Claude Code and Codex, and MCP clients such as Claude Desktop, Cursor and VS Code.
 
 - **Query on-chain data with SQL**: indexed blocks, transactions, transfers, tokens and prices, including state at past blocks.
 - **Read live data**: table rows by key or filter, and chain state (balances, code, storage, contract reads) through Leafage.
 - **Run compute**: BlockX functions, notebooks and pipelines, on demand or on a schedule.
-- **Agent-ready**: a bundled skill for Claude Code and Codex, structured JSON output and documented exit codes.
+- **Agent-ready**: a bundled skill for Claude Code and Codex, a local MCP server for other clients, structured JSON output and documented exit codes.
 
 > Unofficial and in active development: commands and output may change between releases. We improve it from community feedback, so please [open an issue](https://github.com/haimingx/chaintable-cli/issues) for problems and ideas.
 >
@@ -77,7 +77,7 @@ read the private data of your accounts.
    chaintable auth login
    ```
 
-   `space create`, `notebook run` and `notebook instance list` need an account. If you belong to several, login lists them and asks which one to use. `chaintable auth status` shows the selected account and when you logged in; `chaintable auth login --remark "work laptop, token cli-mac"` adds a note of your own, such as the token's name, kept only on this machine. Switch with `chaintable account use` (choose from a list), `chaintable account use <name or id>`, or pass `--account-id` to a single command; on a terminal, a create or run that uses the selected account first prints `Acting for <account>`.
+   `space create` and `notebook run` need an account. If you belong to several, login lists them and asks which one to use. `chaintable auth status` shows the selected account and when you logged in; `chaintable auth login --remark "work laptop, token cli-mac"` adds a note of your own, such as the token's name, kept only on this machine. Switch with `chaintable account use` (choose from a list), `chaintable account use <name or id>`, or pass `--account-id` to a single command; on a terminal, a create or run that uses the selected account first prints `Acting for <account>`.
 
 3. Run commands. They mirror the API: `chaintable <resource> [sub-resource] <action>`.
 
@@ -98,7 +98,7 @@ Each request identifies the CLI in its `User-Agent`, for usage statistics: `chai
 
 In CI, set `CHAINTABLE_TOKEN` and, when you belong to several accounts, `CHAINTABLE_ACCOUNT_ID` instead of logging in. The CLI uses personal access tokens only; API keys are for services that call the API directly and are billed to their account.
 
-A coding agent can read anything the CLI can, so treat the token on an agent's machine as exposed to it: give each machine its own token with a short expiry, and revoke it on chaintable.com when the machine no longer needs it. On a terminal, chaintable reminds you a week before the saved token expires; `chaintable auth status` shows `expires_in_days`. The skill tells agents never to read or print the token, and the permissions below keep Claude Code from reading the file.
+A coding agent can read anything the CLI can, so treat the token on an agent's machine as exposed to it: give each machine its own token with a short expiry, and revoke it on chaintable.com when the machine no longer needs it. The skill tells agents never to read or print the token, and the permissions below keep Claude Code from reading the file.
 
 ## Use with Claude Code
 
@@ -132,6 +132,69 @@ sandbox_mode = "workspace-write"
 [sandbox_workspace_write]
 network_access = true
 ```
+
+## Use with MCP clients
+
+`chaintable mcp` is a local [MCP](https://modelcontextprotocol.io) server for clients such as Claude Desktop, Cursor and VS Code. The client starts it as a process on your computer and talks to it over stdio; requests go from your computer straight to the Chaintable API. Coding agents that run shell commands, such as Claude Code and Codex, are better served by the plugin above.
+
+1. Install the CLI (see [Install](#install)), version 0.4.0 or later.
+2. Optional: log in in a terminal with `chaintable auth login`. Without login the server reads public data; with it, it also reads your accounts' private data and can create and run resources. The server uses this login, so no token goes into the client's configuration.
+3. Desktop apps do not read your shell's `PATH`, so give them the binary's full path: `chaintable mcp --help` prints a ready configuration with it (or use `which chaintable`, on Windows `where chaintable`).
+4. Add the server to your client, then restart the client fully.
+
+**Claude Desktop**: Settings → Developer → Edit Config opens `claude_desktop_config.json` (macOS: `~/Library/Application Support/Claude/`, Windows: `%APPDATA%\Claude\`):
+
+```json
+{
+  "mcpServers": {
+    "chaintable": {
+      "command": "/Users/you/.local/bin/chaintable",
+      "args": ["mcp"]
+    }
+  }
+}
+```
+
+**Cursor**: the same `mcpServers` entry in `~/.cursor/mcp.json`, or in `.cursor/mcp.json` for one project.
+
+**VS Code**: in `.vscode/mcp.json` of a workspace, or through the command MCP: Add Server:
+
+```json
+{
+  "servers": {
+    "chaintable": {
+      "type": "stdio",
+      "command": "/Users/you/.local/bin/chaintable",
+      "args": ["mcp"]
+    }
+  }
+}
+```
+
+**Claude Code**, when you prefer MCP to the plugin: `claude mcp add --scope user chaintable -- chaintable mcp`.
+
+On Windows, use the full path to `chaintable.exe`, with backslashes escaped in JSON (`"C:\\Tools\\chaintable.exe"`). To use another profile, add `"env": {"CHAINTABLE_PROFILE": "work"}` to the server entry. Do not put `CHAINTABLE_TOKEN` in a client's configuration: those files are plain text and often synced or shared.
+
+### Tools
+
+| Tool | Runs | Approval |
+|---|---|---|
+| `chaintable_read` | Read-only commands: SQL and table reads, chain calls, getting and listing resources, `commands`, `schema`, `skill print` | Marked read-only; safe to allow always |
+| `chaintable_run` | Commands that create, change, delete or run something | Keep asking each time; deletes also need `--yes` |
+
+Both take the command line after `chaintable` as a list of arguments, for example `["table", "get", "--id", "token.token.eth"]`. The model is told to read the skill first through `["skill", "print"]`, so it follows the same guidance as the Claude Code plugin. Login, `update`, `skill sync` and other CLI management run only in a terminal, and `--base-url` is refused so that no text the model reads can send your token elsewhere.
+
+A result over 80 KB is refused with a hint to ask for less (`LIMIT`, `--limit`, `--fields`, or the next page with `--start`), since clients cap tool results and may not read local files.
+
+### Troubleshooting
+
+| Symptom | Check |
+|---|---|
+| The tools do not appear | Restart the client fully; check the `command` path with `"<path>" version` in a terminal |
+| `spawn chaintable ENOENT` or command not found | Use the absolute path from step 3 |
+| `this command requires login` | Run `chaintable auth login` in a terminal; the server picks it up on the next call |
+| Calls fail with network errors | The machine needs access to `api.chaintable.com` |
+| Anything else | Run `chaintable mcp` in a terminal: it waits for a client without printing, so stop it with Ctrl-C. Claude Desktop's logs are in `~/Library/Logs/Claude/mcp*.log` (Windows: `%APPDATA%\Claude\logs`) |
 
 ## Use with other agents
 

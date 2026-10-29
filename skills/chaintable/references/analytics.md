@@ -20,7 +20,8 @@ use `table row query` instead.
 
 - `query create` saves the SQL and creates a default table visualization; it prints the id. Languages: `sql`, the
   only one that runs, and `python`, which is accepted when saving but cannot run.
-- `query run --id <id> --code @query.sql --wait` submits a job and prints the rows. Job status: `pending`, `running`,
+- `query run --code @query.sql --wait` runs SQL without saving anything; `query run --id <id> --wait` runs a saved
+  query's own SQL, and `--id` with `--code` runs other SQL under it. Each submits a job and prints the rows. Job status: `pending`, `running`,
   then `succeeded`, `failed` or `canceled` (`canceling` in between).
 - At `--timeout` (exit 9) the job continues: `query job get --id <job-id>`, then `query result --id <query_result_id>`.
   `query job latest --id <query-id> --code @query.sql` finds the newest job for that SQL; `query job cancel` stops one.

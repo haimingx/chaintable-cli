@@ -65,8 +65,9 @@ chaintable notebook list --space token --fields id,name          # how a dataset
 chaintable function get --id token.event_to_token_transfer --fields id,parameters,code
 ```
 
-Schedules of other accounts are private; judge how current a table is by its rows (`table stats block`, latest
-`block_height` or `time_at`) instead.
+To see how a dataset stays current, list the schedules of its space (`chaintable schedule list --space token`) and
+their recent runs (`notebook instance list --schedule-id <id>`); confirm with the rows themselves (`table stats
+block`, latest `block_height` or `time_at`).
 
 ## Community data
 

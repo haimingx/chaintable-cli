@@ -6,15 +6,17 @@ An account owns resources, usage and API keys: the user's personal account, or a
 personal access token stands for the user: reads include public data and the private data of the user's accounts,
 and a change needs the user's role in the account that owns the resource.
 
-- Most commands take the account from the resource they work on. Only `space create`, `notebook run` (the account
-  the execution and its notebook quota count against) and `notebook instance list` take one: the selected account,
-  or `--account-id <id>` for one command.
+- Most commands take the account from the resource they work on. Only `space create` and `notebook run` (the account
+  the execution and its notebook quota count against) need one: the selected account, or `--account-id <id>` for one
+  command. `notebook instance list --account-id <id>` lists the executions of any account named, and `space list
+  --account-id <id>` its spaces; both show only what the caller may read.
 - `chaintable auth status` shows the selected account and every account the user belongs to; `account list` lists
   them; `account use <name or id>` switches.
 - Organization roles: `owner`, `admin` (manages members and settings), `member` (creates spaces and edits resources).
   A request outside the role exits 4.
 - The user picks the account. Never switch it to make a command pass; ask.
-- Without login, query commands read public data only; commands that change resources exit 3.
+- Without login, reads cover public data, including schedules and notebook executions in public spaces; commands
+  that change resources, and `account list`, exit 3.
 
 ## Spaces
 
