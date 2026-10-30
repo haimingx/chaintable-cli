@@ -82,7 +82,6 @@ flags `query run --wait`, `notebook run --follow` and `table row export` are des
 - `chaintable schedule enable`: Enable a schedule. `--id`*
 - `chaintable schedule get`: Get a schedule and its upcoming runs. `--content-id` `--content-type` (query|dashboard|notebook) `--id` `--space`
 - `chaintable schedule list`: List the schedules in a space. `--content-id` `--content-type` (query|dashboard|notebook) `--direction` `--keyword` `--limit` `--mode` (crontab|perpetual) `--order-by` (id|name|created_at|updated_at) `--space`* `--start`
-- `chaintable schedule restart`: Restart a perpetual schedule. `--id`*
 - `chaintable schedule update`: Update a schedule's name, cron, arguments or resources. `--arguments` `--cron` `--id`* `--max-cpu` `--max-memory` `--name`
 
 ## space

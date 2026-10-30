@@ -17,8 +17,9 @@ compute from that account's quota while it runs; agree on the frequency with the
 - Notebook schedules take the run's `--arguments` (`{name, value}` objects) and `--max-cpu`/`--max-memory`, a pair from
   `notebook instance specs` (hundredths of a core, bytes).
 - `schedule disable` stops future runs; for `perpetual` it also stops the instance. Disabling `crontab` does not
-  cancel a run already started. `schedule restart` restarts a perpetual schedule's instance.
-- A perpetual instance does not pick up new code until it restarts: update the notebook, then `schedule restart`.
+  cancel a run already started.
+- A perpetual instance does not pick up new code or settings until it starts again: update the notebook or schedule,
+  `schedule disable`, wait until `schedule get` shows `runtime_status` `stopped`, then `schedule enable`.
 - `schedule get` shows `enabled`, `next_run_at` (Unix seconds) and recent runs; notebook runs appear in
   `notebook instance list --schedule-id <id>`.
 
