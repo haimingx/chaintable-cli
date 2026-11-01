@@ -128,7 +128,7 @@ item, several contract reads in one `contractMultiCall`. Reads may briefly miss 
 | Need | Use | Notes |
 |---|---|---|
 | Analysis, aggregation, joins, history | `query run --wait` (SQL) | Analytics copy that trails the online tables; read `references/sql.md` first |
-| Latest rows of one table, simple filter | `table row query` sorted by an indexed column, `table row get` | Live data, one table, no joins; see `references/tables.md` |
+| Latest rows of one table, simple filter | `table row query` sorted by an indexed column, `table row get` | Live data, one table; only `SELECT *` with `WHERE`, `ORDER BY`, `LIMIT`, so counts and sums use SQL |
 | Current chain state (balance, block, contract call) | `rpc <chain>` | Node state, not tables |
 | Reusable logic the user saved | `function invoke` | A new function needs about 2 minutes before it can be invoked |
 | Batch, backfill or continuous jobs | `notebook run` or a schedule | Starts a container; confirm first |
