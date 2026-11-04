@@ -146,14 +146,14 @@ Read `references/data.md` first: the platform's `chaintable` and `debank` accoun
 `token`, `price`, `balance`, …) that answer most questions; prefer them. Find spaces in this order:
 
 1. `chaintable space discover core`: the curated official spaces.
-2. `chaintable space discover search --q <topic> --exclude-core`: other public spaces, most depended-on first.
+2. `chaintable space discover search --keyword <topic> --exclude-core`: other public spaces, most depended-on first.
 3. `chaintable space list --account-id <account_id>` (from `auth status`): the user's own spaces. Without
    `--account-id` it sorts every readable space by last update, test spaces first; do not browse with it.
 
 Pass `--space` to every resource list: without it, lists mix all accounts' public resources by update time.
 
 ```sh
-chaintable table list --space token --name transfer --fields id,table_type
+chaintable table list --space token --keyword transfer --fields id,table_type
 chaintable table get --id token.token_transfer.eth --fields columns,indexes   # sort and filter on indexed columns
 chaintable table row query --table-id token.token_transfer.eth --sql "SELECT * FROM token.token_transfer.eth WHERE token_id = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48' ORDER BY block_height DESC LIMIT 5"
 ```

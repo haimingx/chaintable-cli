@@ -54,13 +54,13 @@ Spaces also hold work tables (names with `test` or `debug`); ignore them.
 
 ## Discover
 
-`table search --name` matches table names in every space you can read and groups a table across its chains, most
+`table search --keyword` matches table names in every space you can read and groups a table across its chains, most
 depended-on first; the match is loose, so check that `base_group` (the space and table name) is the table you want.
 
 ```sh
 chaintable chain list --fields id,chain_id,status
-chaintable table search --name transfer --limit 5 --fields base_group,table_type,chain_ids,deps
-chaintable table list --space balance --name pool --fields id,table_type
+chaintable table search --keyword transfer --limit 5 --fields base_group,table_type,chain_ids,deps
+chaintable table list --space balance --keyword pool --fields id,table_type
 chaintable notebook list --space token --fields id,name          # how a dataset is built
 chaintable function get --id token.event_to_token_transfer --fields id,parameters,code
 ```
@@ -71,7 +71,7 @@ block`, latest `block_height` or `time_at`).
 
 ## Community data
 
-`chaintable space discover search --q <text>` finds public spaces with content by id or description, most depended-on
+`chaintable space discover search --keyword <text>` finds public spaces with content by id or description, most depended-on
 first (`--exclude-core` leaves out the featured ones). `chaintable space list` sorts by last update, so test spaces
 come first: do not browse with it. For a topic the maintainer spaces do not cover:
 
