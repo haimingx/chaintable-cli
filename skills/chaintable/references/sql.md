@@ -27,9 +27,10 @@ ORDER BY 1
 ```
 
 - Bound large tables by time or block range; unbounded scans are slow and costly.
-- For "the latest N blocks", run `SELECT max(block_height)` first, then query the fixed range with literal heights.
-  Computing the bound in the same query (a self-join or subquery on a block table) scans the whole table and can
-  exceed the engine's memory.
+- For "the latest N blocks", take the chain head from `table stats block --id <table> --recent 1` (instant), find
+  the newest block SQL covers with `SELECT max(block_height) … WHERE block_height >= <head - 100000>`, then query the
+  fixed range with literal heights. An unbounded `max(block_height)` scans the whole table and can outlast `--wait`;
+  computing the bound in the same query (a self-join or subquery) can exceed the engine's memory.
 - Timestamps are UTC. Use half-open ranges (`>=` start, `<` end).
 - Addresses and hashes are lowercase hex strings.
 
@@ -42,8 +43,8 @@ SQL reads analytics storage that is synchronized from the online tables asynchro
 block ranges and can trail the chain head; normal and time tables are copied periodically, which can take an hour or more,
 so rows written recently may still be missing from SQL.
 
-- Before relying on recent blocks, compare `SELECT max(block_height)` with `table stats block --recent 1`, and bound
-  the query to the covered range.
+- Before relying on recent blocks, compare the bounded `max(block_height)` above with `table stats block --recent 1`,
+  and bound the query to the covered range.
   Within that range SQL is complete: answer from it, without recounting the same blocks from live rows.
 - The newest rows may be missing from SQL while `chaintable table row list` or `table row query` already return them.
 - Tables synchronize independently; when joining, restrict to a block or time range all of them cover.
