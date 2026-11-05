@@ -1,6 +1,6 @@
 # chaintable
 
-A command-line client for [Chaintable](https://chaintable.com), the data and compute platform for on-chain applications, built for terminals, coding agents such as Claude Code and Codex, and MCP clients such as Claude Desktop, Cursor and VS Code.
+A command-line client for [Chaintable](https://chaintable.com), the data and compute platform for on-chain applications, built for coding agents such as Claude Code and Codex, MCP clients such as Claude Desktop, Cursor and VS Code, and terminals. Spaces, tables, queries, dashboards, functions, notebooks and schedules are created, run and managed from here, without the web console; account setup (sign-up, access tokens, members, API keys, variables and plans) stays on chaintable.com.
 
 - **Query on-chain data with SQL**: indexed blocks, transactions, transfers, tokens and prices, including state at past blocks.
 - **Read live data**: table rows by key or filter, and chain state (balances, code, storage, contract reads) through Leafage.

@@ -1,6 +1,6 @@
 ---
 name: chaintable
-description: Query on-chain data and manage Chaintable resources with the chaintable CLI - run SQL queries, read and write tables, run notebooks and functions, and call chain nodes. Use when the user asks about Chaintable, its tables, queries, notebooks, functions or schedules, or wants on-chain data that Chaintable provides.
+description: Query on-chain data and build, run and manage Chaintable resources with the chaintable CLI - run SQL queries, read and write tables, build dashboards, run notebooks, functions and schedules, and call chain nodes. Use when the user asks about Chaintable, its tables, queries, dashboards, notebooks, functions or schedules, or wants on-chain data that Chaintable provides.
 allowed-tools:
   - Bash(chaintable auth status *)
   - Bash(chaintable account list *)

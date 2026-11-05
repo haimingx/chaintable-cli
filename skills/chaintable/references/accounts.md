@@ -23,15 +23,16 @@ and a change needs the user's role in the account that owns the resource.
 A space groups an account's tables, functions, notebooks, queries and dashboards; its id is the first part of every
 resource id (`token.token_transfer.eth`, `demo.usdc_amount`).
 
-- Visibility is `public`, `org` or `private`. Everything in a `public` space can be read by every account; confirm
-  with the user before putting anything sensitive in one (`chaintable space get --id <space>` shows `visibility`).
+- Visibility is `public` or `private`. Everything in a `public` space can be read by everyone, without login; a
+  `private` space only by members of the account that owns it. Confirm with the user before putting anything
+  sensitive in a public space (`chaintable space get --id <space>` shows `visibility`).
 - Lists without `--space` include public resources of other accounts. For the user's own resources, list their spaces
   with `chaintable space list --account-id <account_id>`, then pass `--space` to each list.
 - Resources in another account's public space can be read, not changed.
 - New space: `chaintable space check-id --id <id>` (3–64 lowercase letters, digits and underscores, starting with a
-  letter), then `chaintable space create --id <id>` in the selected account; only `public` is accepted for now. The id
-  cannot change later. `space update` changes the description or visibility; `space delete --yes` deletes it (space
-  admin). `space stats --id <space>` counts its resources.
+  letter), then `chaintable space create --id <id>` in the selected account. Spaces can only be created as, and changed
+  to, `public` for now. The id cannot change later. `space update` changes the description and `space delete --yes`
+  deletes the space; both need the space admin role. `space stats --id <space>` counts its resources.
 
 ## Usage and limits
 

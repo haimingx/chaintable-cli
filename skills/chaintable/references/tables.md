@@ -22,8 +22,8 @@ derive it from events or keep it in a `block_state` table.
 - Every table has an `id` column; its type is one of `chaintable table id-types` (`STRING`, `ADDRESS`, `TOKENID`,
   `HASH`, `BLOCKID`, `CHAINID`, `TXID`) and is never numeric.
 - Block tables add `block_height`, `block_id` and `block_timestamp`; time tables use `id`, `time_at` and `value`.
-  `chaintable table templates --table-type <type>` shows the default columns and indexes; `table init` needs an `id`
-  on each column as well, usually the name.
+  `chaintable table templates --table-type <type>` shows the default columns and indexes; `table init` takes columns
+  as `{name, type}` objects and the CLI assigns their ids.
 - Column types: `STRING` (up to 128 characters), `TEXT`, `HEXSTRING`, `ADDRESS`, `TOKENID`, `TXID`, `BLOCKID`,
   `HASH` (32 hex characters, not a transaction hash), `CHAINID`, `INT` (signed 64-bit), `BLOCKHEIGHT`, `UINT256`
   (exact), `FLOAT`, `BOOLEAN`, `TIMESTAMP`. `INT` and `UINT256` values are read back as decimal strings. Keep
