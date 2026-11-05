@@ -1,13 +1,13 @@
 # chaintable
 
-A command-line client for [Chaintable](https://chaintable.com), the data and compute platform for on-chain applications, built for coding agents such as Claude Code and Codex, MCP clients such as Claude Desktop, Cursor and VS Code, and terminals. Spaces, tables, queries, dashboards, functions, notebooks and schedules are created, run and managed from here, without the web console; account setup (sign-up, access tokens, members, API keys, variables and plans) stays on chaintable.com.
+An experimental command-line client for [Chaintable](https://chaintable.com), the data and compute platform for on-chain applications, built for coding agents such as Claude Code and Codex, MCP clients such as Claude Desktop, Cursor and VS Code, and terminals. Spaces, tables, queries, dashboards, functions, notebooks and schedules are created, run and managed from here, without the web console; account setup (sign-up, access tokens, members, API keys, variables and plans) stays on chaintable.com.
 
 - **Query on-chain data with SQL**: indexed blocks, transactions, transfers, tokens and prices, including state at past blocks.
 - **Read live data**: table rows by key or filter, and chain state (balances, code, storage, contract reads) through Leafage.
 - **Run compute**: BlockX functions, notebooks and pipelines, on demand or on a schedule.
 - **Agent-ready**: a bundled skill for Claude Code and Codex, a local MCP server for other clients, structured JSON output and documented exit codes.
 
-> Unofficial and in active development: commands and output may change between releases. We improve it from community feedback, so please [open an issue](https://github.com/haimingx/chaintable-cli/issues) for problems and ideas.
+> Experimental and in active development: commands and output may change between releases. We improve it from community feedback, so please [open an issue](https://github.com/haimingx/chaintable-cli/issues) for problems and ideas.
 >
 > Using the Chaintable services through it is governed by the [Chaintable Terms of Service](https://chaintable.com/docs/terms), including the restrictions of your service edition. Data and results are not investment advice.
 
