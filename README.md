@@ -13,7 +13,13 @@ An experimental command-line client for [Chaintable](https://chaintable.com), th
 
 ## Install
 
-macOS and Linux:
+Homebrew (macOS and Linux):
+
+```sh
+brew install haimingx/tap/chaintable
+```
+
+Shell installer (macOS and Linux):
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/haimingx/chaintable-cli/main/install.sh | sh
