@@ -1,12 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
-  <rect x="4" y="4" width="120" height="120" rx="28" fill="#0D1117" stroke="#222A35" stroke-width="2"/>
-  <rect x="18" y="20" width="92" height="88" rx="14" fill="#131922" stroke="#1E2733" stroke-width="1.5"/>
-  <circle cx="31" cy="33" r="3" fill="#2D3748"/>
-  <circle cx="42" cy="33" r="3" fill="#2D3748"/>
-  <circle cx="53" cy="33" r="3" fill="#0FA968"/>
-  <line x1="18" y1="45" x2="110" y2="45" stroke="#1E2733" stroke-width="1.5"/>
-  <path d="M34 62L48 73L34 84" stroke="#0FA968" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <line x1="58" y1="84" x2="88" y2="84" stroke="#34D399" stroke-width="6.5" stroke-linecap="round"/>
-  <line x1="62" y1="62" x2="94" y2="62" stroke="#2D3748" stroke-width="4.5" stroke-linecap="round"/>
-  <line x1="62" y1="73" x2="82" y2="73" stroke="#2D3748" stroke-width="4.5" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="ct-chev" x1="22" y1="38" x2="57" y2="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#CEE432"/>
+      <stop offset="55%" stop-color="#81E828"/>
+      <stop offset="100%" stop-color="#55E0A3"/>
+    </linearGradient>
+    <clipPath id="ct-block">
+      <rect x="66" y="44" width="40" height="40" rx="4"/>
+    </clipPath>
+  </defs>
+  <rect width="128" height="128" rx="22" fill="#0E1412"/>
+  <rect x="1.5" y="1.5" width="125" height="125" rx="20.5" stroke="#E6EEE9" stroke-opacity="0.10" stroke-width="2"/>
+  <!-- Prompt chevron -->
+  <path d="M22 47L31 38L57 64L31 90L22 81L39 64Z" fill="url(#ct-chev)"/>
+  <!-- Layered on-chain data -->
+  <g clip-path="url(#ct-block)">
+    <rect x="66" y="44" width="40" height="7.5" fill="#BDE531"/>
+    <rect x="66" y="51.5" width="40" height="12.5" fill="#5BD85C"/>
+    <rect x="66" y="64" width="40" height="20" fill="#0FA968"/>
+  </g>
 </svg>
